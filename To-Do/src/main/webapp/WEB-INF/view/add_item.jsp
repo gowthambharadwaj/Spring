@@ -8,16 +8,22 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page import="com.learning.util.AttributeNames" %>
+<%@ page import="com.learning.util.AttributeName" %>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Add Item</title>
 </head>
 <body>
-<div align="center">
 
-    <form:form method="post" modelAttribute="${AttributeNames.TODO_ITEM}">
-        <table>
+<form:form method="POST" modelAttribute="${AttributeName.TODO_ITEM}">
+    <div class="form-group">
+        <table class="table">
             <tr>
                 <td><label>ID</label></td>
                 <td>
@@ -33,14 +39,15 @@
                 <td><form:input path="deadline"/></td>
             </tr>
             <tr>
-                <td><label>Details</label></td>
+                <td><label >Details</label></td>
                 <td><form:textarea path="details"/></td>
             </tr>
             <tr>
-                <td><input type="submit" value="submit"></td>
+                <td><input type="submit" value="Submit"/></td>
             </tr>
         </table>
-    </form:form>
-</div>
+    </div>
+</form:form>
+
 </body>
 </html>

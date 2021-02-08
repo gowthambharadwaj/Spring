@@ -1,16 +1,38 @@
 package com.learning.service;
 
-import com.learning.model.ToDoData;
-import com.learning.model.ToDoItem;
+import com.learning.model.TodoData;
+import com.learning.model.TodoItem;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
-public interface ToDoItemService {
-    void addItem(ToDoItem item);
+@Slf4j
+@Service
+public class ToDoItemService implements Serviceable {
 
-    void removeItem(int id);
+    // properties
+    @Getter
+    private final TodoData data = new TodoData();
 
-    ToDoItem getItem(int id);
+    // functions
+    @Override
+    public void addItem(TodoItem toAdd) {
+        data.addItem(toAdd);
+    }
 
-    void updateItem(ToDoItem item);
+    @Override
+    public void removeItem(int id) {
+        data.removeItem(id);
+    }
 
-    ToDoData getData();
+    @Override
+    public TodoItem getItem(int id) {
+        return data.getItem(id);
+    }
+
+    @Override
+    public void updateItem(TodoItem toUpdate) {
+        data.updateItem(toUpdate);
+    }
+
 }

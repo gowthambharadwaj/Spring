@@ -1,9 +1,9 @@
 package com.learning.controller;
 
-import com.learning.model.ToDoData;
-import com.learning.model.ToDoItem;
-import com.learning.service.ToDoItemService;
-import com.learning.util.AttributeNames;
+import com.learning.model.TodoData;
+import com.learning.model.TodoItem;
+import com.learning.service.Serviceable;
+import com.learning.util.AttributeName;
 import com.learning.util.Mapping;
 import com.learning.util.ViewName;
 import lombok.extern.slf4j.Slf4j;
@@ -19,52 +19,57 @@ import java.time.LocalDate;
 
 @Slf4j
 @Controller
-public class ToDoItemController {
+public class TodoItemController {
 
     // properties
-    private final ToDoItemService toDoItemService;
+    private final Serviceable serviceable;
 
     // constructor
     @Autowired
-    public ToDoItemController(ToDoItemService toDoItemService) {
-        this.toDoItemService = toDoItemService;
+    public TodoItemController(Serviceable serviceable) {
+        this.serviceable = serviceable;
     }
 
     // model attributes
     @ModelAttribute
-    public ToDoData toDoData() {
-        return toDoItemService.getData();
+    public TodoData todoData() {
+        return serviceable.getData();
     }
 
     // http://localhost:8080/items
     @GetMapping(Mapping.ITEMS)
     public String items() {
+        log.info("rendering items_list");
         return ViewName.ITEMS_LIST;
     }
 
+    // http://localhost:8080/addItem
     @GetMapping(Mapping.ADD_ITEM)
     public String addEditItem(@RequestParam(required = false, defaultValue = "-1") int id, Model model) {
+
         log.info("editing id = {}", id);
-        ToDoItem todoItem = toDoItemService.getItem(id);
+        TodoItem todoItem = serviceable.getItem(id);
 
         if (todoItem == null) {
-            log.info("add tem NULL");
-            todoItem = new ToDoItem("", "", LocalDate.now());
+            todoItem = new TodoItem("", "", LocalDate.now());
         }
 
-        model.addAttribute(AttributeNames.TODO_ITEM, todoItem);
+        model.addAttribute(AttributeName.TODO_ITEM, todoItem);
+        log.info("rendering add_item");
         return ViewName.ADD_ITEM;
     }
 
     // http://localhost:8080/addItem
     @PostMapping(Mapping.ADD_ITEM)
-    public String processItem(@ModelAttribute(AttributeNames.TODO_ITEM) ToDoItem todoItem) {
+    public String processItem(@ModelAttribute(AttributeName.TODO_ITEM) TodoItem todoItem) {
         log.info("todoItem from from = {}", todoItem);
+
         if (todoItem.getId() == 0) {
-            toDoItemService.addItem(todoItem);
+            serviceable.addItem(todoItem);
         } else {
-            toDoItemService.updateItem(todoItem);
+            serviceable.updateItem(todoItem);
         }
+        log.info("rendering items after adding");
         return "redirect:/" + Mapping.ITEMS;
     }
 
@@ -72,7 +77,17 @@ public class ToDoItemController {
     @GetMapping(Mapping.DELETE_ITEM)
     public String deleteItem(@RequestParam int id) {
         log.info("delete an item");
-        toDoItemService.removeItem(id);
+        serviceable.removeItem(id);
+        log.info("rendering items after deleting");
         return "redirect:/" + Mapping.ITEMS;
+    }
+
+    // http://localhost:8080/viewItem
+    @GetMapping(Mapping.VIEW_ITEM)
+    public String deleteItem(@RequestParam int id, Model model) {
+        TodoItem todoItem = serviceable.getItem(id);
+        model.addAttribute(AttributeName.TODO_ITEM, todoItem);
+        log.info("rendering view_item to view");
+        return ViewName.VIEW;
     }
 }
