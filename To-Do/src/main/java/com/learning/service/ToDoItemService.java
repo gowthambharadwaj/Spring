@@ -21,12 +21,12 @@ public class ToDoItemService implements Serviceable {
     }
 
     @Override
-    public void removeItem(int id) {
+    public void removeItem(Integer id) {
         data.removeItem(id);
     }
 
     @Override
-    public TodoItem getItem(int id) {
+    public TodoItem getItem(Integer id) {
         return data.getItem(id);
     }
 

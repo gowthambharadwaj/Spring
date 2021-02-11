@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(of = "id")
 public class TodoItem {
     // properties
-    private int id;
+    private Integer id;
     private String title;
     private String details;
     private LocalDate deadline;

@@ -45,7 +45,7 @@ public class TodoItemController {
 
     // http://localhost:8080/addItem
     @GetMapping(Mapping.ADD_ITEM)
-    public String addEditItem(@RequestParam(required = false, defaultValue = "-1") int id, Model model) {
+    public String addEditItem(@RequestParam(required = false, defaultValue = "-1") Integer id, Model model) {
 
         log.info("editing id = {}", id);
         TodoItem todoItem = serviceable.getItem(id);
@@ -62,9 +62,9 @@ public class TodoItemController {
     // http://localhost:8080/addItem
     @PostMapping(Mapping.ADD_ITEM)
     public String processItem(@ModelAttribute(AttributeName.TODO_ITEM) TodoItem todoItem) {
-        log.info("todoItem from from = {}", todoItem);
+        log.info("todoItem from = {}", todoItem);
 
-        if (todoItem.getId() == 0) {
+        if (todoItem.getId() == null || todoItem.getId() == 0) {
             serviceable.addItem(todoItem);
         } else {
             serviceable.updateItem(todoItem);
@@ -75,7 +75,7 @@ public class TodoItemController {
 
     // http://localhost:8080/deleteItem
     @GetMapping(Mapping.DELETE_ITEM)
-    public String deleteItem(@RequestParam int id) {
+    public String deleteItem(@RequestParam Integer id) {
         log.info("delete an item");
         serviceable.removeItem(id);
         log.info("rendering items after deleting");
@@ -84,7 +84,7 @@ public class TodoItemController {
 
     // http://localhost:8080/viewItem
     @GetMapping(Mapping.VIEW_ITEM)
-    public String deleteItem(@RequestParam int id, Model model) {
+    public String deleteItem(@RequestParam Integer id, Model model) {
         TodoItem todoItem = serviceable.getItem(id);
         model.addAttribute(AttributeName.TODO_ITEM, todoItem);
         log.info("rendering view_item to view");

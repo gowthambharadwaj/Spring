@@ -6,9 +6,9 @@ import com.learning.model.TodoItem;
 public interface Serviceable {
     void addItem(TodoItem item);
 
-    void removeItem(int id);
+    void removeItem(Integer id);
 
-    TodoItem getItem(int id);
+    TodoItem getItem(Integer id);
 
     void updateItem(TodoItem item);
 
