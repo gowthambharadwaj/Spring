@@ -19,10 +19,10 @@ public class TodoData {
     // constructors
     public TodoData() {
 
-        addItem(new TodoItem("Get groceries", "Dal, veggies, curd", LocalDate.now()));
-        addItem(new TodoItem("Upskill", "Programming, springboot", LocalDate.now()));
-        addItem(new TodoItem("Network", "Linkedin, apply", LocalDate.now()));
-        addItem(new TodoItem("Health", "Eat well, meditate", LocalDate.now()));
+//        addItem(new TodoItem("Get groceries", "Dal, veggies, curd", LocalDate.now()));
+//        addItem(new TodoItem("Upskill", "Programming, springboot", LocalDate.now()));
+//        addItem(new TodoItem("Network", "Linkedin, apply", LocalDate.now()));
+//        addItem(new TodoItem("Health", "Eat well, meditate", LocalDate.now()));
 
     }
 
